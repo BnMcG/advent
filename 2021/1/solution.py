@@ -18,6 +18,5 @@ print(f'Part 1: {count_measurement_increases(measurements)}')
 
 # Part 2
 # count the number of times the sum of measurements in this sliding window increases
-window_size = 3
 windows = [measurements[i] + measurements[i+1] + measurements[i+2] for i in range(len(measurements) - 2)]
 print(f'Part 2: {count_measurement_increases(windows)}')
