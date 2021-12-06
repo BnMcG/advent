@@ -2,6 +2,10 @@ from os import linesep as NEW_LINE
 from typing import Tuple
 from functools import reduce
 
+UP = 'up'
+DOWN = 'down'
+BACK = 'back'
+FORWARD = 'forward'
 
 def tokenize_instruction(instruction: str) -> Tuple[str, int]:
     direction, depth = instruction.split(' ')
@@ -18,14 +22,14 @@ with open('input.txt', 'r') as input_file:
 x = 0
 y = 0
 
-depth_vectors = filter(lambda v: v[0] == 'down' or v[0] == 'up', vectors)
-horizontal_vectors = filter(lambda v: v[0] == 'forward' or v[0] == 'back', vectors)
+depth_vectors = filter(lambda v: v[0] == DOWN or v[0] == UP, vectors)
+horizontal_vectors = filter(lambda v: v[0] == FORWARD or v[0] == BACK, vectors)
 
 for (direction, magnitude) in depth_vectors:
-    y += magnitude if direction == 'down' else magnitude*-1
+    y += magnitude if direction == DOWN else magnitude*-1
 
 for (direction, magnitude) in horizontal_vectors:
-    x += magnitude if direction == 'forward' else magnitude*-1
+    x += magnitude if direction == FORWARD else magnitude*-1
 
 print(f'Part 1: {x*y}')
 
@@ -37,11 +41,11 @@ z = 0
 
 for (direction, magnitude) in vectors:
     # Aim vector
-    if direction == 'up' or direction == 'down':
-        z += magnitude if direction == 'down' else magnitude*-1
+    if direction == UP or direction == DOWN:
+        z += magnitude if direction == DOWN else magnitude*-1
     # Travel vector
-    if direction == 'forward' or direction == 'back':
-        x += magnitude if direction == 'forward' else magnitude*-1
+    if direction == FORWARD or direction == BACK:
+        x += magnitude if direction == FORWARD else magnitude*-1
         y += magnitude * z
 
 print(f'Part 2: {x*y}')
