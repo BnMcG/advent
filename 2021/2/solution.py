@@ -7,6 +7,7 @@ def tokenize_instruction(instruction: str) -> Tuple[str, int]:
     direction, depth = instruction.split(' ')
     return (direction, int(depth))
 
+
 with open('input.txt', 'r') as input_file:
     input = input_file.read()
     vectors = input.split(NEW_LINE)
