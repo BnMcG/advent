@@ -19,17 +19,8 @@ with open('input.txt', 'r') as input_file:
 
 # Part 1
 # What do you get if you multiply your final horizontal position by your final depth?
-x = 0
-y = 0
-
-depth_vectors = filter(lambda v: v[0] == DOWN or v[0] == UP, vectors)
-horizontal_vectors = filter(lambda v: v[0] == FORWARD or v[0] == BACK, vectors)
-
-for (direction, magnitude) in depth_vectors:
-    y += magnitude if direction == DOWN else magnitude*-1
-
-for (direction, magnitude) in horizontal_vectors:
-    x += magnitude if direction == FORWARD else magnitude*-1
+x = sum([magnitude if direction == FORWARD else magnitude*-1 for (direction, magnitude) in filter(lambda v: v[0] == FORWARD or v[0] == BACK, vectors)])
+y = sum([magnitude if direction == DOWN else magnitude*-1 for (direction, magnitude) in filter(lambda v: v[0] == DOWN or v[0] == UP, vectors)])
 
 print(f'Part 1: {x*y}')
 
