@@ -1,6 +1,7 @@
 from os import linesep as NEW_LINE
 from collections import Counter
 
+
 with open('input.txt', 'r') as input_file:
     input = input_file.read()
     bytes = input.split(NEW_LINE)
@@ -31,30 +32,31 @@ for i in range(number_of_bits - 1, -1, -1):
 
 print(f'Part 1: {gamma * epsilon}')
 
-
 # Part 2
 # verify the life support rating
-oxygen_generator_candidates = bytes.copy()
-co2_scrubber_candidates = bytes.copy()
+o2_candidates = bytes.copy()
+co2_candidates = bytes.copy()
 
 for i in range(number_of_bits - 1, -1, -1):
-    o2_bits = list(map(lambda b: 1 if b & (1 << i) != 0 else 0, oxygen_generator_candidates))
+    o2_bits = list(map(lambda b: 1 if b & (1 << i) != 0 else 0, o2_candidates))
     o2_most_common = Counter(o2_bits).most_common()
 
-    if len(oxygen_generator_candidates) > 1:
+    if len(o2_candidates) > 1:
         o2_1_most_common = o2_most_common[0][0] == 1
         o2_0_most_common = o2_most_common[0][0] == 0
+        # Second index of the tuple is the number of incidences
         o2_as_common = o2_most_common[0][1] == o2_most_common[-1][1]
-        oxygen_generator_candidates = list(filter(lambda b: True if ((o2_1_most_common or o2_as_common) and b & (1 << i) != 0) or (o2_0_most_common and not o2_as_common and b & (1 << i) == 0) else False, oxygen_generator_candidates))
+        o2_candidates = list(filter(lambda b: True if ((o2_1_most_common or o2_as_common) and b & (1 << i) != 0) or (o2_0_most_common and not o2_as_common and b & (1 << i) == 0) else False, o2_candidates))
 
-    co2_bits = list(map(lambda b: 1 if b & (1 << i) != 0 else 0, co2_scrubber_candidates))
+    co2_bits = list(map(lambda b: 1 if b & (1 << i) != 0 else 0, co2_candidates))
     co2_most_common = Counter(co2_bits).most_common()
 
+    # End of most common list is the least common element
     co2_0_least_common = co2_most_common[-1][0] == 0
     co2_1_least_common = co2_most_common[-1][0] == 1
     co2_as_common = co2_most_common[0][1] == co2_most_common[-1][1]
     
-    if len(co2_scrubber_candidates) > 1:
-        co2_scrubber_candidates = list(filter(lambda b: True if ((co2_0_least_common or co2_as_common) and b & (1 << i) == 0) or (co2_1_least_common and not co2_as_common and b & (1 << i) != 0) else False, co2_scrubber_candidates))
+    if len(co2_candidates) > 1:
+        co2_candidates = list(filter(lambda b: True if ((co2_0_least_common or co2_as_common) and b & (1 << i) == 0) or (co2_1_least_common and not co2_as_common and b & (1 << i) != 0) else False, co2_candidates))
 
-print(f'Part 2: {oxygen_generator_candidates[0] * co2_scrubber_candidates[0]}')
+print(f'Part 2: {o2_candidates[0] * co2_candidates[0]}')
