@@ -1,6 +1,5 @@
 from os import linesep as NEW_LINE
 from typing import Tuple
-from functools import reduce
 
 UP = 'up'
 DOWN = 'down'
