@@ -99,7 +99,7 @@ for selection in game.selections:
             board.board[coords] = None
             del board.lookup[selection]
             if search_for_bingo(board, coords, 'H') or search_for_bingo(board, coords, 'V'):
-                print(sum_board(board) * selection)
+                print(f'Part 1: {sum_board(board) * selection}')
                 game_won = True
                 break
                 
@@ -119,7 +119,7 @@ for selection in game.selections:
             del board.lookup[selection]
             if search_for_bingo(board, coords, 'H') or search_for_bingo(board, coords, 'V'):
                 if len(part_2_boards) == 1:
-                    print(sum_board(board) * selection)
+                    print(f'Part 2: {sum_board(board) * selection}')
                     exit(0)
                 
                 winning_boards.append(board)
